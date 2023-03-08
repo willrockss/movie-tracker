@@ -1,0 +1,21 @@
+spring:
+  main:
+    lazy-initialization: true
+
+test-auth:
+  test-auth-enabled: true
+  persons:
+    -
+      id: -10
+      login: bob
+      password: bob
+      name: Bob the owner
+      selected-profile-id: -10
+      is-owner: true
+    -
+      id: -11
+      login: alice
+      password: alice
+      name: Alice the participant
+      selected-profile-id: -10
+      is-owner: false
