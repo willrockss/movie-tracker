@@ -5,6 +5,7 @@ import io.movietracker.core.application.request.AddMovieToWatchListRequest;
 import io.movietracker.core.application.service.PersonProvider;
 import io.movietracker.core.domain.entity.Person;
 import io.movietracker.core.domain.entity.WatchListEntry;
+import io.movietracker.core.domain.repository.VideoContentRepository;
 import io.movietracker.core.domain.repository.WatchListRepository;
 import io.movietracker.core.domain.vo.PersonId;
 import io.movietracker.core.domain.vo.ProfileId;
@@ -27,11 +28,13 @@ class AddMovieToWatchListHandlerTest {
 
     private final PersonProvider personProvider = mock(PersonProvider.class);
     private final WatchListRepository watchListRepository = mock(WatchListRepository.class);
+    private final VideoContentRepository videoContentRepository = mock(VideoContentRepository.class);
 
     private final WatchListEntryApplicationMapper mapper = Mappers.getMapper(WatchListEntryApplicationMapper.class);
     private final AddMovieToWatchListHandler sut = new AddMovieToWatchListHandler(
             personProvider,
             watchListRepository,
+            videoContentRepository,
             mapper
     );
 
@@ -41,6 +44,8 @@ class AddMovieToWatchListHandlerTest {
         var currentPerson = new Person(new PersonId(1001L), new ProfileId(10L), "Bob", true);
         when(personProvider.getCurrent()).thenReturn(currentPerson);
         when(personProvider.getCurrentOptional()).thenReturn(Optional.of(currentPerson));
+
+        when(videoContentRepository.isVideoPresent(any())).thenReturn(true);
 
         Field wathListEntryIdField = ReflectionUtils.findFields(
                 WatchListEntry.class,

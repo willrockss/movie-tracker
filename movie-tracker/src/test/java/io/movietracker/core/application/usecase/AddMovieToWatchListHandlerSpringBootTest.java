@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ActiveProfiles("test")
+@ActiveProfiles({"test", "dev"})
+@Sql("/data-h2.sql")
 @SpringBootTest
 class AddMovieToWatchListHandlerSpringBootTest {
 
     @Autowired
     AddMovieToWatchListHandler sut;
-
 
     @WithUserDetails(value = "bob")
     @Test

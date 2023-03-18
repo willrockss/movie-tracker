@@ -1,5 +1,6 @@
   console.log("Going to update loading progress bar");
   const loadingProgressElement = document.getElementById("loading-progress");
+
   function updateLoading() {
     const progress = parseInt(loadingProgressElement.getAttribute("aria-valuenow"));
     const maxValue = parseInt(loadingProgressElement.getAttribute("aria-valuemax"));
@@ -72,23 +73,30 @@
         preComment: preCommentIF.value
     }
 
-    const resp = await fetch("/watch-list-entry", {
-        method: "POST",
-        mode: "cors",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data)
-    }).then(it => it.json());
+    try {
+        const resp = await fetch("/watch-list-entry", {
+            method: "POST",
+            mode: "cors",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(data)
+        }).then(it => it.json());
 
-    showWatchList();
-    numberIF.value = "";
-    preCommentIF.value = "";
+        if (resp.error) {
+            alert(resp.message);
+        } else {
+            showWatchList();
+            numberIF.value = "";
+            preCommentIF.value = "";
+        }
+    } catch(err) {
+        console.error(err.message, err);
+        alert(err.message);
+    }
   }
 
-  showWatchList();
-
-
+showWatchList();

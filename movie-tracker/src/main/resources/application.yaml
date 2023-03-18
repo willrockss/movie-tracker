@@ -10,6 +10,9 @@ spring:
       max-wait-millis: 30000
       validation-query: SELECT 1
       validation-query-timeout: 30
+  sql:
+    init:
+      mode: never
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,29 +24,10 @@ spring:
             non_contextual_creation: true
         id:
           new_generator_mappings: true
-
   thymeleaf:
     prefix: classpath:/static/
+  profiles:
+    active: dev
 
-test-auth:
-  test-auth-enabled: true
-  persons:
-    -
-      id: -10
-      login: bob
-      password: bob
-      name: Bob the owner
-      selected-profile-id: -10
-      is-owner: true
-    -
-      id: -11
-      login: alice
-      password: alice
-      name: Alice the participant
-      selected-profile-id: -10
-      is-owner: false
 
-#logging:
-#  level:
-#    org.springframework.security: DEBUG
 

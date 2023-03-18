@@ -5,7 +5,7 @@ import io.movietracker.core.domain.repository.WatchListRepository;
 import io.movietracker.core.domain.vo.ProfileId;
 import io.movietracker.core.domain.vo.WatchListEntryId;
 import io.movietracker.core.infra.jpa.WatchListEntryJpaMapper;
-import io.movietracker.core.infra.jpa.WatchListJpaRepository;
+import io.movietracker.core.infra.jpa.repository.WatchListJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.data.domain.Page;

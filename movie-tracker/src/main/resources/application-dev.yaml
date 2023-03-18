@@ -1,6 +1,4 @@
 spring:
-  main:
-    lazy-initialization: true
   sql:
     init:
       mode: always
@@ -22,3 +20,7 @@ test-auth:
       name: Alice the participant
       selected-profile-id: -10
       is-owner: false
+
+#logging:
+#  level:
+#    org.springframework.security: DEBUG
