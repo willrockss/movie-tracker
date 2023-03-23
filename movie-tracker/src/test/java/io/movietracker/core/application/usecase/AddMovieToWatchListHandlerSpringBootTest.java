@@ -31,6 +31,8 @@ class AddMovieToWatchListHandlerSpringBootTest {
         assertNotNull(resp.createdEntry());
         assertNotNull(resp.createdEntry().getId());
         assertNotNull(resp.createdEntry().getAddedAt());
+        assertNotNull(resp.videoContent());
+        assertNotNull(resp.videoContent().getFullTitle());
     }
 
 }

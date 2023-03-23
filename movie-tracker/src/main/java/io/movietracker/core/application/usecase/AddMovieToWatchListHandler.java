@@ -28,9 +28,9 @@ public class AddMovieToWatchListHandler {
         var currentPerson = personProvider.getCurrent();
 
         var videoId = new VideoId(addMovieToWatchListRequest.videoId());
-        if (!videoContentRepository.isVideoPresent(videoId)) {
-            throw new VideoIsNotPresentError(videoId);
-        }
+        var videoContent = videoContentRepository
+                .findByVideoId(videoId)
+                .orElseThrow(() -> new VideoIsNotPresentError(videoId));
 
         var initialEntity = WatchListEntry.builder()
                 .videoId(videoId)
@@ -41,6 +41,6 @@ public class AddMovieToWatchListHandler {
                 .build();
 
         var savedEntity = watchListRepository.add(initialEntity);
-        return mapper.toResponse(savedEntity);
+        return mapper.toResponse(savedEntity, videoContent);
     }
 }

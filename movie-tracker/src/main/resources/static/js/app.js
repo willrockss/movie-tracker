@@ -43,9 +43,9 @@
     rows.map(it => {
         const trTag = document.createElement("tr");
 
-        const videoIdTag = document.createElement("td");
-        videoIdTag.appendChild(document.createTextNode(it.videoId));
-        trTag.appendChild(videoIdTag);
+        const titleTag = document.createElement("td");
+        titleTag.appendChild(document.createTextNode(it.fullTitle));
+        trTag.appendChild(titleTag);
 
         const preCommentTag = document.createElement("td");
         preCommentTag.appendChild(document.createTextNode(it.preComment));

@@ -4,11 +4,13 @@ import io.movietracker.core.application.mapper.WatchListEntryApplicationMapper;
 import io.movietracker.core.application.request.AddMovieToWatchListRequest;
 import io.movietracker.core.application.service.PersonProvider;
 import io.movietracker.core.domain.entity.Person;
+import io.movietracker.core.domain.entity.VideoContent;
 import io.movietracker.core.domain.entity.WatchListEntry;
 import io.movietracker.core.domain.repository.VideoContentRepository;
 import io.movietracker.core.domain.repository.WatchListRepository;
 import io.movietracker.core.domain.vo.PersonId;
 import io.movietracker.core.domain.vo.ProfileId;
+import io.movietracker.core.domain.vo.VideoId;
 import io.movietracker.core.domain.vo.WatchListEntryId;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.ReflectionUtils;
@@ -21,6 +23,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +48,8 @@ class AddMovieToWatchListHandlerTest {
         when(personProvider.getCurrent()).thenReturn(currentPerson);
         when(personProvider.getCurrentOptional()).thenReturn(Optional.of(currentPerson));
 
-        when(videoContentRepository.isVideoPresent(any())).thenReturn(true);
+        var videoContent = mock(VideoContent.class);
+        when(videoContentRepository.findByVideoId(eq(new VideoId("MOV-001")))).thenReturn(Optional.ofNullable(videoContent));
 
         Field wathListEntryIdField = ReflectionUtils.findFields(
                 WatchListEntry.class,
@@ -69,5 +73,7 @@ class AddMovieToWatchListHandlerTest {
         assertEquals(777, createdEntry.getId().value());
         assertNull(createdEntry.getPreComment());
         assertEquals("MOV-001", createdEntry.getVideoId().value());
+
+        assertEquals(videoContent, resp.videoContent());
     }
 }

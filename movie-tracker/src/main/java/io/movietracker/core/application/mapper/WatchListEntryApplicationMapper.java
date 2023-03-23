@@ -1,5 +1,6 @@
 package io.movietracker.core.application.mapper;
 
+import io.movietracker.core.domain.entity.VideoContent;
 import io.movietracker.core.domain.entity.WatchListEntry;
 import io.movietracker.core.application.response.AddMovieToWatchListResponse;
 import io.movietracker.core.domain.vo.WatchListEntryId;
@@ -18,5 +19,6 @@ public interface WatchListEntryApplicationMapper {
     WatchListEntryId map(Long id);
 
     @Mapping(target = "createdEntry", source = "srcEntity")
-    AddMovieToWatchListResponse toResponse(WatchListEntry srcEntity);
+    @Mapping(target = "videoContent", source = "videoContent")
+    AddMovieToWatchListResponse toResponse(WatchListEntry srcEntity, VideoContent videoContent);
 }

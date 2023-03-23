@@ -23,10 +23,10 @@ public class WatchListController {
 
     @GetMapping
     public Page<WatchListEntry> getToWatchList() {
-        return getWatchListEntriesHandler
-                .handle(new GetWatchListEntriesRequest())
+        var response = getWatchListEntriesHandler.handle(new GetWatchListEntriesRequest());
+        return response
                 .page()
-                .map(mapper::map);
+                .map(it -> mapper.map(it, response.videoContentMap().get(it.getVideoId())));
     }
 
     @PostMapping

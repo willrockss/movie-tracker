@@ -1,7 +1,10 @@
 spring:
   sql:
     init:
+      platform: h2
       mode: always
+  jpa:
+    defer-datasource-initialization: true
 
 test-auth:
   test-auth-enabled: true
